@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<link rel="stylesheet" href="css/bootstrap.min.css">
+<link rel="stylesheet" href="css/bootstrap-theme.min.css">
+<link href="css/bootstrap-switch.min.css" rel="stylesheet">
+<link rel="stylesheet" href="css/app.css">
+<style> body { margin: 10px 0px; min-width:220px; } </style>
+</head>
+<body>
+
+<div class="container-fluid">
+	<div class="row">
+		<div class="col-md-12">
+			<div id="menu">
+				<div><input type="checkbox" name="state" id="idState" data-off-color="danger" data-on-color="success" data-size="mini" data-on-text="Running" data-off-text="Paused" data-label-text="State"></div>
+				<hr>
+				<div id="add-domain" class="menuitem" i18n="menu_adddomains"></div>
+				<div id="del-domain" class="menuitem" i18n="menu_deldomains"></div>
+				<div id="add-extension" class="menuitem" i18n="menu_addextension"></div>
+				<div id="del-extension" class="menuitem" i18n="menu_delextension"></div>
+				<hr>
+				<div id="autobookmarks-settings" class="menuitem" i18n="menu_settings"></div>
+			</div>
+		</div>
+	</div>
+</div>
+
+<script src="js/jquery.min.js"></script>
+<script src="js/bootstrap.min.js"></script>
+<script src="js/bootstrap-switch.min.js"></script>
+<script src="js/asyncTracking.js"></script>
+<script src="js/functions.js"></script>
+<script src="js/popup.js"></script>
+
+</body>
+</html>

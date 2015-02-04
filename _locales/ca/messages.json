@@ -1,0 +1,373 @@
+{
+  "extName":  {
+    "message": "AutoBookmarks",
+    "description": "AutoBookmarks"
+  },
+  "extDescription": {
+    "message": "Guarda les pàgines visitades i les baixades als teus marcadors de forma automàtica.",
+    "description": "Save the visited pages and the download URLs in your bookmarks automatically."
+  },
+  "title": {
+  	"message": "Marcadors automàtics de les pàgines que visites filtrats per domini o per extensió.",
+  	"description": "Automatic bookmarks of your visited pages, filtered by domain or by extension."
+  },
+  "description": {
+    "message": "Aquesta extensió guarda de forma automàtica als marcadors les pàgines visitades que coincideixin amb els dominis o extensions configurats.",
+    "description": "This extension will automatically bookmark the visited page that meet domains or extensions cofiguration."
+  },
+  "menu_settings": {
+    "message": "Configuració general",
+    "description": "General settings"
+  },
+  "menu_domains": {
+    "message": "Filtres per dominis",
+    "description": "Filter domains"
+  },
+  "menu_extensions": {
+    "message": "Filtres per extensions",
+    "description": "Filter extensions"
+  },
+  "menu_history": {
+    "message": "Filtrar històric",
+    "description": "Filter history"
+  },
+  "menu_about": {
+    "message": "Sobre AutoBookmarks",
+    "description": "About Autobookmarks"
+  },
+  "menu_adddomains": {
+    "message": "Afegeix el domini",
+    "description": "Add the domain"
+  },
+  "menu_addextension": {
+    "message": "Afegeix l'extensió",
+    "description": "Add the extension"
+  },
+  "menu_deldomains": {
+    "message": "Esborra el domini",
+    "description": "Remove domain"
+  },
+  "menu_delextension": {
+    "message": "Esborra l'extensió",
+    "description": "Remove extension"
+  },
+  "menu_pause": {
+    "message": "Pausa Autobookmarks",
+    "description": "Pause Autobookmarks"
+  },
+  "menu_filters": {
+    "message": "Filtres",
+    "description": "Filters"
+  },
+  "bookmark_folder_name": {
+    "message": "Nom de la carpeta de marcadors",
+    "description": "AutoBookmarks folder name"
+  },
+  "notifications_enabled": {
+    "message": "Notificacions actives",
+    "description": "Notifications enabled"
+  },
+  "delete_all": {
+    "message": "Borrar carpeta de marcadors i configuració i deixar la configuració de fàbrica",
+    "description": "Delete all configuration and bookmark folder and reset configuration to factory defaults"
+  },
+  "new_domain": {
+    "message": "Afegir un domini",
+    "description": "New domain"
+  },
+  "domains": {
+    "message": "Dominis",
+    "description": "Domains"
+  },
+  "select_domain": {
+    "message": "-- Seleccionar un domini de la llista --",
+    "description": "-- Select a domain in the list --"
+  },
+  "add_external_domain": {
+    "message": "Afegir dominis d'una font externa",
+    "description": "Add external domains"
+  },
+  "select_category": {
+    "message": "-- Seleccionar una categoria --",
+    "description": "-- Select a category --"
+  },
+  "bookmark_folder": {
+    "message": "Carpeta de marcadors:",
+    "description": "Bookmark folder:"
+  },
+  "bookmark_title": {
+    "message": "Títol del marcador:",
+    "description": "Bookmark title:"
+  },
+  "default_page_title": {
+    "message": "Títol de la pàgina",
+    "description": "Default page title"
+  },
+  "new_extension": {
+    "message": "Afegir una extensió",
+    "description": "New extension"
+  },
+  "extensions": {
+    "message": "Extensions",
+    "description": "Extensions"
+  },
+  "select_extension": {
+    "message": "-- Seleccionar una extensió de la llista --",
+    "description": "-- Select an extension in the list --"
+  },
+  "add_external_extension": {
+    "message": "Afegir extensions d'una font externa",
+    "description": "Add external extensions"
+  },
+  "history_description": {
+    "message": "Trobar pàgines visitades i fitxers baixats del teu històric que compleixen amb la configuració actual de dominis i extensions.",
+    "description": "Find the pages in your history that meet settings."
+  },
+  "yes": {
+    "message": "Si",
+    "description": "Yes"
+  },
+  "no": {
+    "message": "No",
+    "description": "No"
+  },
+  "reset_default": {
+    "message": "Resetejar configuració",
+    "description": "Reset to default"
+  },
+  "add_domain": {
+    "message": "Afegir domini",
+    "description": "Add domain"
+  },
+  "delete": {
+    "message": "Esborrar",
+    "description": "Delete"
+  },
+  "delete_all": {
+    "message": "Esborrar tot",
+    "description": "Delete all"
+  },
+  "get": {
+    "message": "Afegir",
+    "description": "get"
+  },
+  "view": {
+    "message": "Veure",
+    "description": "view"
+  },
+  "add_extension": {
+    "message": "Afegir extensió",
+    "description": "Add extension"
+  },
+  "filter_history": {
+    "message": "Filtra l'històric de marcadors amb la configuració actual",
+    "description": "Filter your history bookmarks with current configuration"
+  },
+  "clean_results": {
+    "message": "Netejar els resultats",
+    "description": "Clean results"
+  },
+  "proceed": {
+    "message": "Crear estructura de carpetes i desar els marcadors",
+    "description": "Create folder structure and save bookmarks"
+  },
+  "close": {
+    "message": "Tancar",
+    "description": "Close"
+  },
+  "more_info": {
+    "message": "Més informació",
+    "description": "More info at"
+  },
+  "source_code": {
+    "message": "Codi font disponible a github",
+    "description": "Source code available on github"
+  },
+  "developed_by": {
+    "message": "Programat per",
+    "description": "Developed by"
+  },
+  "version": {
+    "message": "Versió",
+    "description": "Version"
+  },
+  "no_domain": {
+    "message": "No hi ha domini en aquesta pàgina",
+    "description": "No domain in this page"
+  },
+  "no_extension": {
+    "message": "No hi ha extensió en aquesta pàgina",
+    "description": "No extension in this page"
+  },
+  "json_content": {
+    "message": "Contingut recuperat via JSON (txusko.com)",
+    "description": "Content via JSON (txusko.com)"
+  },
+  "view_domains": {
+    "message": "Veure dominis",
+    "description": "View domains"
+  },
+  "view_extensions": {
+    "message": "Veure extensions",
+    "description": "View extensions"
+  },
+  "process_ok": {
+    "message": "Marcadors creats amb exit.",
+    "description": "Bookmarks created successfully."
+  },
+  "custom_css_selector": {
+    "message": "Selector css a la pròpia pàgina.",
+    "description": "Custom css selector in page."
+  },
+  "options": {
+    "message": "Opcions per ",
+    "description": "Options for "
+  },
+  "placeholder_newdomain":{
+    "message":"Escriu un nou domini o una URL",
+    "description":"Enter a new domain or an URL"
+  },
+  "placeholder_newextension":{
+    "message":"Escriu una extensió amb el punt (P.ex: .jpg) o una URL",
+    "description":"Enter an extension with a dot (Ex: .jpg) or an URL"
+  },
+  "placeholder_default":{
+    "message":"Defecte",
+    "description":"Default"
+  },
+  "running":{
+    "message":"Funcionant",
+    "description":"Running"
+  },
+  "paused":{
+    "message":"Aturat",
+    "description":"Paused"
+  },
+  "state":{
+    "message":"Estat",
+    "description":"State"
+  },
+  "bug_report":{
+    "message":"Informes d'error",
+    "description":"Bug report"
+  },
+  "search":{
+    "message":"Cercar",
+    "description":"Search"
+  },
+  "hist_noconfig":{
+    "message":"No tens dominis o extensions que filtrar.",
+    "description":"You don't have any domains or extensions to filter"
+  },
+  "hist_recoveringdomains":{
+    "message":"Recuperant dominis",
+    "description":"Recovering domains"
+  },
+  "hist_nodownfile":{
+    "message":"No hem trobat cap fitxer baixat a",
+    "description":"We don't find any downloaded file in"
+  },
+  "hist_nohisfile":{
+    "message":"No hem trobat cap pàgina a l'historial de",
+    "description":"We don't find any history page in"
+  },
+  "hist_nodownext":{
+    "message":"No hem trobat cap fitxer baixat amb aquesta extensió",
+    "description":"We don't find any downloaded file with this extension"
+  },
+  "hist_nohisext":{
+    "message":"No hem trobat cap pàgina a l'historial amb aquesta extensió",
+    "description":"We don't find any history page with this extension"
+  },
+  "hist_recoveringextensions":{
+    "message":"Recuperant extensions",
+    "description":"Recovering extensions"
+  },
+  "in_history":{
+    "message":"a l'historial",
+    "description":"in history"
+  },
+  "in_downloads":{
+    "message":"a les baixades",
+    "description":"in downloads"
+  },
+  "no_domains":{
+    "message":"Encara no hi ha cap domini configurat",
+    "description":"No domains configured yet"
+  },
+  "no_extensions":{
+    "message":"Encara no hi ha cap extensió configurada",
+    "description":"No extensions configured yet"
+  },
+  "delete_allquestion":{
+    "message":"Vols esborrar-ho tot i deixar la configuració als seus valors de fabrica?",
+    "description":"Do you want to delete all and reset configuration to factory defaults?"
+  },
+  "delete_domains":{
+    "message":"Vols esborrar tots els dominis?",
+    "description":"Do you want to delete all the domains?"
+  },
+  "delete_extensions":{
+    "message":"Vols esborrar totes les extensions?",
+    "description":"Do you want to delete all the extensions?"
+  },
+  "total_new":{
+    "message":"(total: $contentvalue1$ nous: $contentvalue2$)",
+    "description":"(total: x new: y)",
+    "placeholders":{
+      "contentvalue1":{
+        "content":"$1"
+      },
+      "contentvalue2":{
+        "content":"$2"
+      }
+    }
+  },
+  "deleteextension_question":{
+    "message":"Vols esborrar l'extensió $contentvalue$?",
+    "description":"Do you want to delete extension?",
+    "placeholders":{
+      "contentvalue":{
+        "content":"$1"
+      }
+    }
+  },
+  "deletedomain_question":{
+    "message":"Vols esborrar el domini $contentvalue$ i la seva configuració?",
+    "description":"Do you want to delete domain and the current configuration?",
+    "placeholders":{
+      "contentvalue":{
+        "content":"$1"
+      }
+    }
+  },
+  "domains_for":{
+    "message":"Dominis per",
+    "description":"Domains for"
+  },
+  "extensions_for":{
+    "message":"Extensions per",
+    "description":"Extensions for"
+  },
+  "wait_process": {
+    "message": "Espera un moment mentres el proces acaba ...",
+    "description": "Wait until the process finish..."
+  },
+  "notify_title": {
+    "message": "Nou Autobookmark!",
+    "description": "New Autobookmark!"
+  },
+  "notify_newbookmark":{
+    "message":"Hem afegit el marcador \"$contentvalue$\" a",
+    "description":"We've added x bookmark in",
+    "placeholders":{
+      "contentvalue":{
+        "content":"$1"
+      }
+    }
+  },
+  "date_enabled": {
+    "message": "Afegir la data al títol dels nous marcadors",
+    "description": "Add date to new bookmarks title"
+  }
+}
