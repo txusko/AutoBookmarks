@@ -12,10 +12,8 @@ You will be able to put in new domains or file extensions in the Settings Page o
 ## Get bookmarks from your history
 Recover from your browser history the pages you have visited for the last three months and the downloaded files URLs, and save it into bookmarks. All of these, filtered by the domains/extensions you have configured.
 
-## Source code & Contact
-You can check the Source Code on Github. Any kind of help or comment will be appreciated.
-
 ## Contact
 Also, you can contact with me by email at: autobookmarks@txusko.com
+Any kind of help or comment will be appreciated :)
 
 http://autobookmarks.txusko.com/
