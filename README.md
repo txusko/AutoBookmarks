@@ -1,6 +1,6 @@
 # AutoBookmarks
 A chrome extension for automatically save the visited pages and the downloaded URLs in your bookmarks.
-https://chrome.google.com/webstore/detail/autobookmarks/lcchihcbfbaedlagdpaemgbpjapiihpo?hl=es
+https://chrome.google.com/webstore/detail/autobookmarks/lcchihcbfbaedlagdpaemgbpjapiihpo
 
 You can add domains or file extensions in your configuration. After that, Autobookmarks will create a bookmark each time you visit a new page or you download a new file that meet with this configuration. The created bookmarks will be saved into folders with the name you'll prefer, and these folders will be placed into a general folder in your browser bookmarks toolbar.
 
