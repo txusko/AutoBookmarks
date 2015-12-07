@@ -105,6 +105,8 @@ optionsPage.domainsTab = function() {
     $("#idDomain").append("<option value='" + id + "'>" + domain + "</option>");
   });
   $('#idAddDomain').click(optionsPage._NewDomain); //New domain
+  optionsPage._NewDomainListInit();
+  $('#idAddDomainList').click(optionsPage._NewDomainList); //New domain list
   $('#idNewDomain').keypress(function(e) { if(e.which == 13) { $('#idAddDomain').click(); } });
   $('#idDomain').change(optionsPage._EnableOptions); //Enable domain options
   $('#idDeleteDomain').click(optionsPage._DeleteDomain); //Delete domain
@@ -186,7 +188,7 @@ optionsPage.historyTab = function() {
             $('#status').slideDown(function() {
               setTimeout(function() {
                 $('#status').slideUp('slow');
-              }, 1500);  
+              }, 1500);
             });
           });
         });
@@ -242,6 +244,7 @@ optionsPage.getExternalDomains = function() {
         content += "<p><a href='" + url + "' target=_blank>" + translate("json_content") + "</a></p>";
         $('#myModalLabel').text(translate("view_domains"));
         $('#myModalContent').html(content);
+        $('#myModalAccept').hide();
         $('#myModal').modal();
       });
     }
@@ -274,6 +277,7 @@ optionsPage.getExternalExtensions = function() {
           content += "<p><a href='" + url + "' target=_blank>" + translate("json_content") + "</a></p>";
           $('#myModalLabel').text(translate('view_extensions'));
           $('#myModalContent').html(content);
+          $('#myModalAccept').hide();
           $('#myModal').modal();
         });
       }
@@ -314,7 +318,7 @@ optionsPage._ShowStatusMessage = function(message) {
   $('#status').slideDown(function() {
     setTimeout(function() {
       $('#status').slideUp('slow');
-    }, 1500);  
+    }, 1500);
   });
 }
 
@@ -338,6 +342,66 @@ optionsPage._NewDomain = function() {
   }
   $('#idNewDomain').val("");
 }
+
+//Create a new domain list configuration
+optionsPage._NewDomainListInit = function() {
+    $('#myModalAccept').click(function() {
+        var text = $('#list').val();
+        if(text !== '') {
+            var lines = text.split(/[\r\n]+/g); // tolerate both Windows and Unix linebreaks
+            for(var i = 0; i < lines.length; i++) {
+                $('#idNewDomain').val(lines[i]);
+                $('#idAddDomain').click();
+            }
+        } else {
+            alert('Domain list is empty.');
+        }
+    });
+};
+
+optionsPage._NewDomainList = function() {
+
+    var content = "<p>" + translate('add_domain_list_info') + "</p>";
+    content += '<form enctype="multipart/form-data" method="POST"><input type="hidden" name="MAX_FILE_SIZE" value="30000" />';
+    content += '<input type="file" id="fileinput" name="files[]" /><br><textarea class="form-control" rows="10" id="list"></textarea></form>';
+    $('#myModalLabel').text(translate("add_domain_list"));
+    $('#myModalContent').html(content);
+    $('#myModalAccept').show();
+    $('#myModal').modal();
+
+    // Check for the various File API support.
+    if (window.File && window.FileReader && window.FileList && window.Blob) {
+
+      function readSingleFile(evt) {
+         //Retrieve the first (and only!) File from the FileList object
+         var f = evt.target.files[0];
+
+         if (f) {
+           var r = new FileReader();
+           r.onload = function(e) {
+             // Print the contents of the file
+              var text = e.target.result;
+              var lines = text.split(/[\r\n]+/g); // tolerate both Windows and Unix linebreaks
+              var domains = [];
+              for(var i = 0; i < lines.length; i++) {
+                  domains.push(lines[i]);
+              }
+              var resultado = domains.join(String.fromCharCode(13, 10));
+              $('#list').val(resultado);
+           }
+           r.readAsText(f);
+         } else {
+           alert("Failed to load file");
+         }
+       }
+
+       document.getElementById('fileinput').addEventListener('change', readSingleFile, false);
+
+    } else {
+      alert('The File APIs are not fully supported in this browser.');
+    }
+};
+
 
 //Enable domain options
 optionsPage._EnableOptions = function() {
@@ -512,4 +576,3 @@ chrome.extension.onMessage.addListener(function(request, sender, sendResponse) {
     }
     return true;
 });
-

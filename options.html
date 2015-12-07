@@ -40,7 +40,7 @@
 			</div>
 
 			<form role="form" class="form-horizontal panel panel-default">
- 
+
 				<div class="tab-content panel-body">
 				  	<div role="tabpanel" class="tab-pane fade in active" id="tabs-1">
 				  		<div class="row">
@@ -66,7 +66,7 @@
 							</div>
 						</div>
 				  	</div>
-				  
+
 				  	<div role="tabpanel" class="tab-pane fade" id="tabs-2">
 				  		<div class="row">
 							<div class="col-md-8">
@@ -78,6 +78,7 @@
 										</div>
 										<div class="col-sm-4">
 											<button name="addDomain" id="idAddDomain" class="btn btn-success" i18n="add_domain"></button>
+                                            <button name="addDomain" id="idAddDomainList" class="btn btn-info" i18n="add_domain_list"></button>
 										</div>
 								  	</div>
 									<div class="form-group">
@@ -247,7 +248,8 @@
       </div>
       <div class="modal-body" id="myModalContent" i18n="extDescription"></div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-default" data-dismiss="modal" i18n="close"></button>
+          <button type="button" class="btn btn-default" data-dismiss="modal" i18n="get" id="myModalAccept" style="display:none;"></button>
+          <button type="button" class="btn btn-default" data-dismiss="modal" i18n="close"></button>
       </div>
     </div>
   </div>

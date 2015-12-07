@@ -135,6 +135,14 @@
     "message": "Añadir dominio",
     "description": "Add domain"
   },
+  "add_domain_list": {
+    "message": "Añadir lista de dominios",
+    "description": "Add domain list"
+  },
+  "add_domain_list_info": {
+    "message": "Herramienta para añadir dominios de forma masiva. Un domini por línea.",
+    "description": "Add domain list info"
+  },
   "delete": {
     "message": "Borrar",
     "description": "Delete"

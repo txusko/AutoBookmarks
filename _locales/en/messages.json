@@ -135,6 +135,14 @@
     "message": "Add domain",
     "description": "Add domain"
   },
+  "add_domain_list": {
+    "message": "Add domain list",
+    "description": "Add domain list"
+  },
+  "add_domain_list_info": {
+    "message": "Bulk domain tool. One domain for each line.",
+    "description": "Add domain list info"
+  },
   "delete": {
     "message": "Delete",
     "description": "Delete"
