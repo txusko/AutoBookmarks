@@ -1,11 +1,12 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<link rel="stylesheet" href="css/bootstrap.min.css">
-<link rel="stylesheet" href="css/bootstrap-theme.min.css">
-<link href="css/bootstrap-switch.min.css" rel="stylesheet">
-<link rel="stylesheet" href="css/app.css">
-<title i18n="extName"></title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="css/bootstrap.min.css">
+    <link rel="stylesheet" href="css/bootstrap-theme.min.css">
+    <link href="css/bootstrap-switch.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="css/app.css">
+    <title i18n="extName"></title>
 </head>
 <body>
 <div class="container-fluid">
@@ -42,25 +43,37 @@
 			<form role="form" class="form-horizontal panel panel-default">
 
 				<div class="tab-content panel-body">
-				  	<div role="tabpanel" class="tab-pane fade in active" id="tabs-1">
-				  		<div class="row">
-							<div class="col-md-8">
-						  		<div class="form-group">
-						  			<label for="idExtensionFolder" class="col-sm-3 control-label" i18n="bookmark_folder_name"></label>
-						  			<div class="col-sm-8">
+                    <div role="tabpanel" class="tab-pane fade in active" id="tabs-1">
+                        <div class="row">
+							<div class="col-md-12">
+                                <div class="form-group">
+                                    <label for="idExtensionFolder" class="col-md-3 control-label" i18n="bookmark_folder_name"></label>
+                                    <div class="col-md-8">
 							    		<input type="text" name="extensionFolder" id="idExtensionFolder" class="form-control" i18n_placeholder="extName">
 							    	</div>
 							    </div>
-							    <div class="form-group">
-							    	<label for="idNotificationsEnabled" class="col-sm-3 control-label" i18n="notifications_enabled"></label>
-							    	<div class="col-sm-8">
-								    	<input type="checkbox" name="notificationsEnabled" id="idNotificationsEnabled" data-on-text="Yes" data-off-text="No">
-								    </div>
+                                <div class="form-group">
+                                    <label for="idNotificationsEnabled" class="col-md-3 control-label" i18n="notifications_enabled"></label>
+                                    <div class="col-md-1">
+                                        <input type="checkbox" name="notificationsEnabled" id="idNotificationsEnabled" data-on-text="Yes" data-off-text="No">
+                                    </div>
+                                    <div id="idDivNotTimeOut">
+                                        <label for="idNotificationsTimeout" class="col-md-4 control-label" i18n="notifications_timeout"></label>
+                                        <div class="col-md-3">
+                                            <input type="text" name="notificationsTimeout" id="idNotificationsTimeout" class="form-control" i18n_placeholder="miliseconds">
+                                        </div>
+                                    </div>
 							    </div>
 							    <div class="form-group">
-							    	<label for="idDateEnabled" class="col-sm-3 control-label" i18n="date_enabled"></label>
-							    	<div class="col-sm-8">
+							    	<label for="idDateEnabled" class="col-md-3 control-label" i18n="date_enabled"></label>
+							    	<div class="col-md-8">
 								    	<input type="checkbox" name="dateEnabled" id="idDateEnabled" data-on-text="Yes" data-off-text="No">
+								    </div>
+							    </div>
+                                <div class="form-group">
+							    	<label for="idAutoAdd" class="col-md-3 control-label" i18n="autoadd_enabled"></label>
+							    	<div class="col-md-8">
+								    	<input type="checkbox" name="autoAdd" id="idAutoAdd" data-on-text="Yes" data-off-text="No">
 								    </div>
 							    </div>
 							</div>
@@ -81,12 +94,18 @@
                                             <button name="addDomain" id="idAddDomainList" class="btn btn-info" i18n="add_domain_list"></button>
 										</div>
 								  	</div>
-									<div class="form-group">
-								  		<label for="idDomain" class="col-sm-2 control-label" i18n="domains"></label>
-								  		<div class="col-sm-6">
-											<select id="idDomain" name="domain" size="10" class="form-control">
-												<option value="" i18n="select_domain"></option>
-										 	</select>
+                                    <div class="form-group">
+                                        <div class="col-sm-2 text-right">
+                                            <label for="idDomain" class="control-label" i18n="domains"></label>
+                                        </div>
+                                        <div class="col-sm-6">
+											<ul id="idDomain" class="domain_list">
+										 	</ul>
+                                            <p class="text-right">
+                                                <a id="idCheckAll" href="#"><i class="fa fa-check-square-o"></i> Check all</a>
+                                                &nbsp;&nbsp;
+                                                <a id="idUnCheckAll" href="#"><i class="fa fa-square-o"></i> Uncheck all</a>
+                                            </p>
 										</div>
 										<div class="col-sm-4">
 											<button name="deleteDomain" id="idDeleteDomain" class="option btn btn-warning" i18n="delete"></button>
@@ -155,9 +174,13 @@
 							  	<div class="form-group">
 							  		<label for="idExtension" class="col-sm-2 control-label" i18n="extensions"></label>
 							  		<div class="col-sm-6">
-										<select id="idExtension" name="extension" size="10" class="form-control">
-											<option value="" i18n="select_extension"></option>
-									 	</select>
+                                        <ul id="idExtension" class="extension_list">
+                                        </ul>
+                                        <p class="text-right">
+                                            <a id="idCheckAll2" href="#"><i class="fa fa-check-square-o"></i> <span i18n="check_all"></span></a>
+                                            &nbsp;&nbsp;
+                                            <a id="idUnCheckAll2" href="#"><i class="fa fa-square-o"></i> <span i18n="uncheck_all"></span></a>
+                                        </p>
 									</div>
 									<div class="col-sm-4">
 										<button name="deleteExtension" id="idDeleteExtension" class="btn btn-warning" i18n="delete"></button>
@@ -213,7 +236,10 @@
 								&nbsp;<a href="https://github.com/txusko/Autobookmarks" target=_blank>https://github.com/txusko/AutoBookmarks</a>
 								<br><span i18n="bug_report"></span>:
 								&nbsp;<a href="https://github.com/txusko/Autobookmarks/issues" target=_blank>https://github.com/txusko/AutoBookmarks/issues</a>
-							</p>
+						        <br><br>
+								<span i18n="changelog"></span>:
+								&nbsp;<a href="https://github.com/txusko/Autobookmarks/CHANGELOG.md" target=_blank>https://github.com/txusko/Autobookmarks/CHANGELOG.md</a>
+                            </p>
 						</div>
 						<div class="form-group">
 							<p>
@@ -248,7 +274,7 @@
       </div>
       <div class="modal-body" id="myModalContent" i18n="extDescription"></div>
       <div class="modal-footer">
-          <button type="button" class="btn btn-default" data-dismiss="modal" i18n="get" id="myModalAccept" style="display:none;"></button>
+          <button type="button" class="btn btn-default" data-dismiss="modal" i18n="get" id="myModalAccept"></button>
           <button type="button" class="btn btn-default" data-dismiss="modal" i18n="close"></button>
       </div>
     </div>

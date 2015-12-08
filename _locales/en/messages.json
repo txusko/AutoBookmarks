@@ -12,7 +12,7 @@
   	"description": "Automatic bookmarks of your visited pages, filtered by domain or by extension."
   },
   "description": {
-    "message": "This extension will automatically bookmark the visited page that meet domains or extensions cofiguration.",
+    "message": "This extension will automatically bookmark the visited page that meet domains or file-extensions cofiguration.",
     "description": "This extension will automatically bookmark the visited page that meet domains or extensions cofiguration."
   },
   "menu_settings": {
@@ -24,8 +24,8 @@
     "description": "Filter domains"
   },
   "menu_extensions": {
-    "message": "Filter extensions",
-    "description": "Filter extensions"
+    "message": "Filter file-extensions",
+    "description": "Filter file-extensions"
   },
   "menu_history": {
     "message": "Filter history",
@@ -40,16 +40,16 @@
     "description": "Add the domain"
   },
   "menu_addextension": {
-    "message": "Add the extension",
-    "description": "Add the extension"
+    "message": "Add the file-extension",
+    "description": "Add the file-extension"
   },
   "menu_deldomains": {
     "message": "Remove domain",
     "description": "Remove domain"
   },
   "menu_delextension": {
-    "message": "Remove extension",
-    "description": "Remove extension"
+    "message": "Remove file-extension",
+    "description": "Remove file-extension"
   },
   "menu_pause": {
     "message": "Pause Autobookmarks",
@@ -59,9 +59,17 @@
     "message": "AutoBookmarks folder name",
     "description": "AutoBookmarks folder name"
   },
+  "autoadd_enabled": {
+    "message": "Add domains and file-extensions automatically from the pages you visit",
+    "description": "Add domains and file-extensions automatically"
+  },
   "notifications_enabled": {
     "message": "Notifications enabled",
     "description": "Notifications enabled"
+  },
+  "notifications_timeout": {
+    "message": "Notification's timeout",
+    "description": "Notification's timeout"
   },
   "delete_all": {
     "message": "Delete all configuration and bookmark folder and reset configuration to factory defaults",
@@ -100,20 +108,20 @@
     "description": "Default page title"
   },
   "new_extension": {
-    "message": "New extension",
-    "description": "New extension"
+    "message": "New file-extension",
+    "description": "New file-extension"
   },
   "extensions": {
-    "message": "Extensions",
-    "description": "Extensions"
+    "message": "File-extensions",
+    "description": "File-extensions"
   },
   "select_extension": {
-    "message": "-- Select an extension in the list --",
-    "description": "-- Select an extension in the list --"
+    "message": "-- Select a file-extension in the list --",
+    "description": "-- Select a file-extension in the list --"
   },
   "add_external_extension": {
-    "message": "Add external extensions",
-    "description": "Add external extensions"
+    "message": "Add external file-extensions",
+    "description": "Add external file-extensions"
   },
   "history_description": {
     "message": "Find the pages in your history that meet settings.",
@@ -160,8 +168,8 @@
     "description": "view"
   },
   "add_extension": {
-    "message": "Add extension",
-    "description": "Add extension"
+    "message": "Add file-extension",
+    "description": "Add file-extension"
   },
   "filter_history": {
     "message": "Filter your history bookmarks with current configuration",
@@ -200,8 +208,8 @@
     "description": "No domain in this page"
   },
   "no_extension": {
-    "message": "No extension in this page",
-    "description": "No extension in this page"
+    "message": "No file-extension in this page",
+    "description": "No file-extension in this page"
   },
   "json_content": {
     "message": "Content via JSON (txusko.com)",
@@ -212,8 +220,8 @@
     "description": "View domains"
   },
   "view_extensions": {
-    "message": "View extensions",
-    "description": "View extensions"
+    "message": "View file-extensions",
+    "description": "View file-extensions"
   },
   "process_ok": {
     "message": "Bookmarks created successfully.",
@@ -232,7 +240,7 @@
     "description":"Enter a new domain or an URL"
   },
   "placeholder_newextension":{
-    "message":"Enter an extension with the dot (Ex: .jpg) or an URL",
+    "message":"Enter a file-extension with the dot (Ex: .jpg) or an URL",
     "description":"Enter an extension with the dot (Ex: .jpg) or an URL"
   },
   "placeholder_default":{
@@ -259,9 +267,17 @@
     "message":"Search",
     "description":"Search"
   },
+  "check_all":{
+    "message":"Check all",
+    "description":"Check all"
+  },
+  "uncheck_all":{
+    "message":"Uncheck all",
+    "description":"Uncheck all"
+  },
   "hist_noconfig":{
-    "message":"You don't have any domains or extensions to filter",
-    "description":"You don't have any domains or extensions to filter"
+    "message":"You don't have any domains or file-extensions to filter",
+    "description":"You don't have any domains or file-extensions to filter"
   },
   "hist_recoveringdomains":{
     "message":"Recovering domains",
@@ -276,16 +292,16 @@
     "description":"We don't find any history page in"
   },
   "hist_nodownext":{
-    "message":"We don't find any downloaded file with this extension",
-    "description":"We don't find any downloaded file with this extension"
+    "message":"We don't find any downloaded file with this file-extension",
+    "description":"We don't find any downloaded file with this file-extension"
   },
   "hist_nohisext":{
-    "message":"We don't find any history page with this extension",
-    "description":"We don't find any history page with this extension"
+    "message":"We don't find any history page with this file-extension",
+    "description":"We don't find any history page with this file-extension"
   },
   "hist_recoveringextensions":{
-    "message":"Recovering extensions",
-    "description":"Recovering extensions"
+    "message":"Recovering file-extensions",
+    "description":"Recovering file-extensions"
   },
   "in_history":{
     "message":"in history",
@@ -300,8 +316,8 @@
     "description":"No domains configurated yet"
   },
   "no_extensions":{
-    "message":"No extensions configurated yet",
-    "description":"No extensions configurated yet"
+    "message":"No file-extensions configurated yet",
+    "description":"No file-extensions configurated yet"
   },
   "delete_allquestion":{
     "message":"Do you want to delete everything and reset the configuration to factory defaults?",
@@ -312,8 +328,8 @@
     "description":"Do you want to delete all the domains?"
   },
   "delete_extensions":{
-    "message":"Do you want to delete all the extensions?",
-    "description":"Do you want to delete all the extensions?"
+    "message":"Do you want to delete all the file-extensions?",
+    "description":"Do you want to delete all the file-extensions?"
   },
   "total_new":{
     "message":"(total: $contentvalue1$ new: $contentvalue2$)",
@@ -328,7 +344,7 @@
     }
   },
   "deleteextension_question":{
-    "message":"Do you want to delete $contentvalue$ extension?",
+    "message":"Do you want to delete $contentvalue$ file-extension?",
     "description":"Do you want to delete extension?",
     "placeholders":{
       "contentvalue":{
@@ -350,8 +366,8 @@
     "description":"Domains for"
   },
   "extensions_for":{
-    "message":"Extensions for",
-    "description":"Extensions for"
+    "message":"File-extensions for",
+    "description":"File-extensions for"
   },
   "wait_process": {
     "message": "Wait a minute until the process finish...",
@@ -373,5 +389,13 @@
   "date_enabled": {
     "message": "Add date to new bookmarks title",
     "description": "Add date to new bookmarks title"
+  },
+  "changelog": {
+    "message": "Changelog",
+    "description": "Changelog"
+  },
+  "miliseconds": {
+    "message": "Miliseconds",
+    "description": "Miliseconds"
   }
 }

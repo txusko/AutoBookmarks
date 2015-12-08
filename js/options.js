@@ -30,6 +30,15 @@
 
 var console = console;
 
+//Delay repetitive actions
+var delay = (function(){
+  var timer = 0;
+  return function(callback, ms){
+    clearTimeout (timer);
+    timer = setTimeout(callback, ms);
+  };
+})();
+
 var optionsPage = {};
 
 //Initialize Page
@@ -60,55 +69,114 @@ optionsPage._Init = function() {
 }
 
 optionsPage.settingsTab = function() {
-  //Bookmarks folder
-  $('#idExtensionFolder').val(abm.bookmarkFolderName).change(function() {
-    var newTitle = $('#idExtensionFolder').val() ? $('#idExtensionFolder').val() : defaults.bookmarkFolderName;
-    if(idParentFolder <= 0) {
-      chrome.bookmarks.getSubTree("1", function(bookmarks) {
-        idParentFolder = functs.search_for_title(bookmarks, abm.bookmarkFolderName);
-        if(idParentFolder && idParentFolder > 0) {
-          abm.bookmarkFolderName = newTitle;
-          chrome.bookmarks.update(String(idParentFolder), {'title': newTitle});
+    //Bookmarks folder
+    $('#idExtensionFolder').val(abm.bookmarkFolderName).change(function() {
+        var newTitle = $('#idExtensionFolder').val() ? $('#idExtensionFolder').val() : defaults.bookmarkFolderName;
+        if(idParentFolder <= 0) {
+            chrome.bookmarks.getSubTree("1", function(bookmarks) {
+                idParentFolder = functs.search_for_title(bookmarks, abm.bookmarkFolderName);
+                if(idParentFolder && idParentFolder > 0) {
+                    abm.bookmarkFolderName = newTitle;
+                    chrome.bookmarks.update(String(idParentFolder), {'title': newTitle});
+                }
+                if($('#idExtensionFolder').val() == "")
+                    $('#idExtensionFolder').val(defaults.bookmarkFolderName);
+                optionsPage._Save();
+            });
+        } else {
+            abm.bookmarkFolderName = newTitle;
+            chrome.bookmarks.update(String(idParentFolder), {'title': newTitle});
+            optionsPage._Save();
         }
-        if($('#idExtensionFolder').val() == "")
-          $('#idExtensionFolder').val(defaults.bookmarkFolderName);
-        optionsPage._Save();
-      });
-    } else {
-      abm.bookmarkFolderName = newTitle;
-      chrome.bookmarks.update(String(idParentFolder), {'title': newTitle});
-      optionsPage._Save();
-    }
-  });
-
-  //Notifications enabled
-  optionsPage.switchCheckBox("idNotificationsEnabled", "notificationsEnabled", abm.notificationsEnabled, function(state) {
-    chrome.storage.sync.set({
-      notificationsEnabled: state
-    }, function() {
-      abm._Restore();
     });
-  });
 
-  //Date on bookmarks enabled
-  optionsPage.switchCheckBox("idDateEnabled", "dateEnabled", abm.dateEnabled, function(state) {
-    chrome.storage.sync.set({
-      dateEnabled: state
-    }, function() {
-      abm._Restore();
+    //AutoAdd domains and extensions
+    optionsPage.switchCheckBox("idAutoAdd", "autoAdd", abm.autoAdd, function(state) {
+        chrome.storage.sync.set({
+            autoAdd: state
+        }, function() {
+            abm._Restore();
+        });
     });
-  });
+
+    //Notifications enabled
+    var displayDivNotTimeOut = function(state) {
+        if(state) {
+            $('#idDivNotTimeOut').show();
+        } else {
+            $('#idDivNotTimeOut').hide();
+        }
+    };
+    optionsPage.switchCheckBox("idNotificationsEnabled", "notificationsEnabled", abm.notificationsEnabled, function(state) {
+        displayDivNotTimeOut(state);
+        chrome.storage.sync.set({
+            notificationsEnabled: state
+        }, function() {
+            abm._Restore();
+        });
+    });
+    displayDivNotTimeOut(abm.notificationsEnabled);
+
+    $('#idNotificationsTimeout').val(abm.notificationTimeout).change(function() {
+        var notTimOut = parseInt($(this).val(), 10);
+        if(notTimOut < 1000)
+            notTimOut = 1000;
+        else if(notTimOut > 5000)
+            notTimOut = 5000;
+        $(this).val(notTimOut);
+        chrome.storage.sync.set({
+            notificationTimeout: notTimOut
+        }, function() {
+            abm._Restore();
+        });
+    });
+
+    //Date on bookmarks enabled
+    optionsPage.switchCheckBox("idDateEnabled", "dateEnabled", abm.dateEnabled, function(state) {
+        chrome.storage.sync.set({
+            dateEnabled: state
+        }, function() {
+            abm._Restore();
+        });
+    });
 }
 
 optionsPage.domainsTab = function() {
-  $.each(abm.domains, function(id, domain) {
-    $("#idDomain").append("<option value='" + id + "'>" + domain + "</option>");
-  });
+    optionsPage.processExternalDomains = "externaldomain";
+    optionsPage._RefreshDomainList();
+
+    $( document ).on( "click", ".domain_li", function() {
+        var id = $(this).find('span').attr("data-id");
+        //$('#idDomain'+id).prop('checked', !$('#idDomain'+id).prop('checked'));
+        optionsPage._EnableOptions(id);
+        $('.domain_check').parent().css('background-color','').css('color','');
+        $('#idDomain'+id).parent().css('background-color','#28a4c9').css('color','white');
+        $('.domain_selected').removeClass('showOptions');
+        $(this).find('span').addClass('showOptions');
+    });
+    $( document ).on( "change", ".domain_check", function() {
+        //$(this).prop('checked', !$(this).prop('checked'));
+        if($(this).prop('checked')) {
+            var id = $(this).next().attr("data-id");
+            optionsPage._EnableOptions(id);
+        }
+    });
+
+    //Check/Uncheck all
+    $('#idCheckAll').click(function() {
+        $('.domain_check').prop("checked", true);
+    });
+    $('#idUnCheckAll').click(function() {
+        $('.domain_check').prop("checked", false);
+    });
+
+  //$('#idDomain').change(optionsPage._EnableOptions); //Enable domain options
+
   $('#idAddDomain').click(optionsPage._NewDomain); //New domain
   optionsPage._NewDomainListInit();
   $('#idAddDomainList').click(optionsPage._NewDomainList); //New domain list
   $('#idNewDomain').keypress(function(e) { if(e.which == 13) { $('#idAddDomain').click(); } });
-  $('#idDomain').change(optionsPage._EnableOptions); //Enable domain options
+
   $('#idDeleteDomain').click(optionsPage._DeleteDomain); //Delete domain
   $('#idDeleteDomainAll').click(optionsPage._DeleteDomainAll); //Delete all domains
   $('#idDomainFolder').change(optionsPage._Save); //Save on folder name change
@@ -126,21 +194,41 @@ optionsPage.domainsTab = function() {
 }
 
 optionsPage.extensionsTab = function() {
-  $.each(abm.extensions, function(id, extension) {
-    $("#idExtension").append("<option value='" + id + "'>" + extension + "</option>");
-  });
+    optionsPage.processExternalDomains = "externalextension";
+    //Extension list
+    optionsPage._RefreshExtensionList();
+    //Extension list Events
+    $( document ).on( "click", ".extension_li", function() {
+        var id = $(this).find('span').attr("data-id");
+        $('.extension_check').parent().css('background-color','').css('color','');
+        $('#idExtension'+id).parent().css('background-color','#28a4c9').css('color','white');
+        $('.extension_selected').removeClass('showOptions2');
+        $(this).find('span').addClass('showOptions2');
+
+        if($('.extension_check:checked').length > 0 || $('.showOptions2').length > 0) {
+            $('#idDeleteExtension').removeAttr('disabled');
+        } else {
+            $('#idDeleteExtension').attr('disabled', 'disabled');
+        }
+    });
+    $( document ).on( "change", ".extension_check", function() {
+        if($(this).prop('checked')) {
+            var id = $(this).next().attr("data-id");
+        }
+    });
+    //Check/Uncheck all
+    $('#idCheckAll2').click(function() {
+        $('.extension_check').prop("checked", true);
+    });
+    $('#idUnCheckAll2').click(function() {
+        $('.extension_check').prop("checked", false);
+    });
+
   $('#idAddExtension').click(optionsPage._NewExtension); //New domain
   $('#idNewExtension').keypress(function(e) { if(e.which == 13) { $('#idAddExtension').click(); } });
   $('#idDeleteExtension').click(optionsPage._DeleteExtension); //Delete extension
   $('#idDeleteExtensionAll').click(optionsPage._DeleteExtensionAll); //Delete all extensions
   $('#idDeleteExtension').attr('disabled', 'disabled');
-  $('#idExtension').change(function() {
-    if($(this).val() !== "") {
-      $('#idDeleteExtension').removeAttr('disabled');
-    } else {
-      $('#idDeleteExtension').attr('disabled', 'disabled');
-    }
-  });
   //External petitions for extensions
   optionsPage.getExternalExtensions();
 }
@@ -244,8 +332,9 @@ optionsPage.getExternalDomains = function() {
         content += "<p><a href='" + url + "' target=_blank>" + translate("json_content") + "</a></p>";
         $('#myModalLabel').text(translate("view_domains"));
         $('#myModalContent').html(content);
-        $('#myModalAccept').hide();
+        //$('#myModalAccept').hide();
         $('#myModal').modal();
+        optionsPage.processExternalDomains = "externaldomain";
       });
     }
   });
@@ -277,8 +366,9 @@ optionsPage.getExternalExtensions = function() {
           content += "<p><a href='" + url + "' target=_blank>" + translate("json_content") + "</a></p>";
           $('#myModalLabel').text(translate('view_extensions'));
           $('#myModalContent').html(content);
-          $('#myModalAccept').hide();
+          //$('#myModalAccept').hide();
           $('#myModal').modal();
+          optionsPage.processExternalDomains = "externalextension";
         });
       }
     });
@@ -322,16 +412,51 @@ optionsPage._ShowStatusMessage = function(message) {
   });
 }
 
+optionsPage._RefreshDomainList = function() {
+    $("#idDomain").html("");
+    $.each(abm.domains, function(id, domain) {
+        $("#idDomain").append("<li class='domain_li'><input type='checkbox' class='domain_check' id='idDomain"+id+"'> <span class='domain_selected' data-id='" + id + "'>" + domain + "</span></li>");
+    });
+};
+
+optionsPage._RefreshExtensionList = function() {
+    $("#idExtension").html("");
+    $.each(abm.extensions, function(id, extension) {
+        $("#idExtension").append("<li class='extension_li'><input type='checkbox' class='extension_check' id='idExtension"+id+"'> <span class='extension_selected' data-id='" + id + "'>" + extension + "</span></li>");
+    });
+};
+
+//Create a new extension configuration
+optionsPage._NewExtension = function() {
+  var extension = functs.getUniqueExtension($('#idNewExtension').val());
+  if(extension != "") {
+    if(abm.extensions.indexOf(extension) < 0) {
+      var id = $( ".extension_check" ).length;
+      //$("#idExtension").append("<option value='" + id + "'>" + extension + "</option>");
+      $("#idExtension").append("<li class='extension_li'><input type='checkbox' class='extension_check' id='idExtension"+id+"'> <span class='extension_selected' data-id='" + id + "'>" + extension + "</span></li>");
+      $('#idNewExtension').val("");
+      $('#idExtension' + id).parent().click();
+      //_extension._Add(extension);
+      optionsPage._Save();
+    } else {
+      optionsPage._ShowStatusMessage('Extension ' + extension + ' already exists');
+    }
+  } else {
+    optionsPage._ShowStatusMessage('Incorrect extension ' + $('#idNewExtension').val());
+  }
+  $('#idNewExtension').val("");
+}
+
 //Create a new domain configuration
 optionsPage._NewDomain = function() {
   var domain = functs.getUniqueId($('#idNewDomain').val());
   if(domain != "") {
     if(abm.domains.indexOf(domain) < 0) {
-      var id = $( "#idDomain option" ).length - 1;
-      $("#idDomain").append("<option value='" + id + "'>" + domain + "</option>");
+      var id = $( ".domain_check" ).length;
+      $("#idDomain").append("<li class='domain_li'><input type='checkbox' class='domain_check' id='idDomain"+id+"'> <span class='domain_selected' data-id='" + id + "'>" + domain + "</span></li>");
       $('#idNewDomain').val("");
-      $('#idDomain option:eq(' + (id+1) + ')').prop('selected', true);
-      optionsPage._EnableOptions();
+      $('#idDomain' + id).parent().click();
+      optionsPage._EnableOptions(id);
       $('#idDomainFolder').val(domain);
       optionsPage._Save();
     } else {
@@ -346,15 +471,29 @@ optionsPage._NewDomain = function() {
 //Create a new domain list configuration
 optionsPage._NewDomainListInit = function() {
     $('#myModalAccept').click(function() {
-        var text = $('#list').val();
-        if(text !== '') {
-            var lines = text.split(/[\r\n]+/g); // tolerate both Windows and Unix linebreaks
-            for(var i = 0; i < lines.length; i++) {
-                $('#idNewDomain').val(lines[i]);
-                $('#idAddDomain').click();
+        if(optionsPage.processExternalDomains == "externaldomain") {
+            //External domain list
+            $('#idGetExternalDomains').click();
+        } else if(optionsPage.processExternalDomains == "externalextension") {
+            //External extension list
+            $('#idGetExternalExtensions').click();
+        } else if(optionsPage.processExternalDomains == "listdomain") {
+            //Domain list
+            var text = $('#list').val();
+            if(text !== '') {
+                var lines = text.split(/[\r\n]+/g); // tolerate both Windows and Unix linebreaks
+                for(var i = 0; i < lines.length; i++) {
+                    $('#idNewDomain').val(lines[i]);
+                    $('#idAddDomain').click();
+                    if(lines.length == i) {
+                        setTimeout(function() {
+                            optionsPage._RefreshDomainList();
+                        }, 200);
+                    }
+                }
+            } else {
+                alert('Domain list is empty.');
             }
-        } else {
-            alert('Domain list is empty.');
         }
     });
 };
@@ -368,6 +507,7 @@ optionsPage._NewDomainList = function() {
     $('#myModalContent').html(content);
     $('#myModalAccept').show();
     $('#myModal').modal();
+    optionsPage.processExternalDomains = "listdomain";
 
     // Check for the various File API support.
     if (window.File && window.FileReader && window.FileList && window.Blob) {
@@ -404,7 +544,7 @@ optionsPage._NewDomainList = function() {
 
 
 //Enable domain options
-optionsPage._EnableOptions = function() {
+optionsPage._EnableOptions = function(id) {
   //Disable
   $('#domain_options').hide();
   $('#idSpanDomain').html(translate("select_domain"));
@@ -412,12 +552,14 @@ optionsPage._EnableOptions = function() {
   $('#idDomainFolder').val("");
   $('input[name=domainTitle]')[0].checked = true;
 
-  if($( "#idDomain option:selected" ).val() !== "") {
+  if(id !== undefined && id !== "") {
     //Enable
     $('#domain_options').show();
-    $('#idSpanDomain').html($( "#idDomain option:selected" ).text());
+    var domainName = $( "#idDomain" + id ).next().text();
+    $('#idSpanDomain').html('<a href="http://'+domainName+'" target=_blank>'+domainName+'</a>');
     $('.option').removeAttr('disabled');
-    var option = abm.options[$( "#idDomain option:selected" ).val()];
+    var option = abm.options[id];
+    //console.log(id,option);
     if(typeof option !== "undefined" && option != null) {
       $('#idDomainFolder').val(option[0]);
       $('input[name=domainTitle]')[parseInt(option[1],10)].checked = true;
@@ -430,115 +572,147 @@ optionsPage._EnableOptions = function() {
   }
 }
 
-//Create a new extension configuration
-optionsPage._NewExtension = function() {
-  var extension = functs.getUniqueExtension($('#idNewExtension').val());
-  if(extension != "") {
-    if(abm.extensions.indexOf(extension) < 0) {
-      var id = $( "#idExtension option" ).length - 1;
-      $("#idExtension").append("<option value='" + id + "'>" + extension + "</option>");
-      $('#idNewExtension').val("");
-      $('#idExtension option:eq(' + (id+1) + ')').prop('selected', true);
-      //_extension._Add(extension);
-      optionsPage._Save();
-    } else {
-      optionsPage._ShowStatusMessage('Extension ' + extension + ' already exists');
-    }
-  } else {
-    optionsPage._ShowStatusMessage('Incorrect extension ' + $('#idNewExtension').val());
-  }
-  $('#idNewExtension').val("");
-}
-
 //Save configuration
 optionsPage._Save = function() {
-  //Domains
-  var tempDom = [];
-  $('#idDomain option').each(function() {
-      if($(this).val() !== "") tempDom.push($(this).text());
-  });
 
-  //Domain Options
-  var tempOpt = abm.options;
-  tempOpt[$( "#idDomain option:selected" ).val()] = [$('#idDomainFolder').val(), $('input[name=domainTitle]:checked').val(), $('#idCustomTitleSelector').val()];
+    //Domains
+    var tempDom = [];
+    $('.domain_selected').each(function() {
+        if($(this).attr("data-id") !== "") {
+            tempDom.push($(this).text());
+        }
+    });
+    abm.domains = tempDom;
 
-  //Extensions
-  var tempExt = [];
-  $('#idExtension option').each(function() {
-      if($(this).val() !== "") tempExt.push($(this).text());
-  });
+    //Domain Options
+    var tempOpt = abm.options;
+    if(typeof $('.showOptions').attr("data-id") !== "undefined") {
+        tempOpt[$('.showOptions').attr("data-id")] = [$('#idDomainFolder').val(), $('input[name=domainTitle]:checked').val(), $('#idCustomTitleSelector').val()];
+        console.log($('.showOptions').attr("data-id"), tempOpt);
+    }
+    abm.options = tempOpt;
 
-  //Save data
-  chrome.storage.sync.set({
-    bookmarkFolderName: $('#idExtensionFolder').val() ? $('#idExtensionFolder').val() : defaults.bookmarkFolderName,
-    domains: tempDom,
-    options: tempOpt,
-    extensions: tempExt,
-    notificationsEnabled: $('input[name="notificationsEnabled"]:checked').val() !== "1" ? false : true,
-    dateEnabled: $('input[name="dateEnabled"]:checked').val() !== "1" ? false : true
-  }, function() {
-    optionsPage._ShowStatusMessage('Options saved');
-    //RESTORE DATA
-    $('#idCleanHistory').click();
-    abm._Restore();
-  });
+    //Extensions
+    var tempExt = [];
+    $('.extension_selected').each(function() {
+        if($(this).attr("data-id") !== "") {
+            tempExt.push($(this).text());
+        }
+    });
+    abm.extensions = tempExt;
+
+    //Save data
+    delay(function() {
+        chrome.storage.sync.set({
+            bookmarkFolderName: $('#idExtensionFolder').val() ? $('#idExtensionFolder').val() : defaults.bookmarkFolderName,
+            domains: abm.domains,
+            options: abm.options,
+            extensions: abm.extensions,
+            notificationsEnabled: $('input[name="notificationsEnabled"]:checked').val() !== "1" ? false : true,
+            notificationTimeout: $('#idNotificationsTimeout').val(),
+            dateEnabled: $('input[name="dateEnabled"]:checked').val() !== "1" ? false : true,
+            autoAdd: $('input[name="autoAdd"]:checked').val() !== "1" ? false : true,
+        }, function() {
+            optionsPage._ShowStatusMessage('Options saved');
+            //RESTORE DATA
+            $('#idCleanHistory').click();
+            abm._Restore();
+        });
+    },100);
 }
 
 //Delete domain & configuration
 optionsPage._DeleteDomain = function(id) {
-  if(confirm(translate("deletedomain_question", [$( "#idDomain option:selected" ).text()]))) {
-    if(typeof abm.options[$( "#idDomain option:selected" ).val()] !== "undefined") {
-      abm.options.splice($( "#idDomain option:selected" ).val(), 1);
-      $( "#idDomain option:selected" ).remove();
-      optionsPage._Save();
-      var selOpt = document.getElementById("idDomain").options;
-      for (i = 1; i < selOpt.length; i++) {
-        document.getElementById("idDomain").options[i] = new Option(selOpt[i].text, (i - 1), false, false);
-      }
-      document.getElementById("idDomain").options[0].selected = true;
-      optionsPage._EnableOptions();
+    var delDom = function(id) {
+        if(typeof abm.options[id] !== "undefined") {
+            abm.options.splice(id, 1);
+            abm.domains.splice(id, 1);
+            $('#idDomain'+id).parent().remove();
+        }
+    };
+    if($('.domain_check:checked').length > 1) {
+        if(confirm(translate("deletedomains_question", [$('.domain_check:checked').length]))) {
+            $($('.domain_check:checked').get().reverse()).each(function(a,b) {
+                delDom($(this).next().attr("data-id"));
+            });
+            optionsPage._Save();
+            setTimeout(function() {
+                optionsPage._RefreshDomainList();
+                optionsPage._EnableOptions();
+            },500);
+        }
+    } else {
+        delDom($('.showOptions').attr("data-id"));
+        optionsPage._Save();
+        setTimeout(function() {
+            optionsPage._RefreshDomainList();
+            optionsPage._EnableOptions();
+        },500);
     }
-  }
 }
 
 //Delete all domains
 optionsPage._DeleteDomainAll = function() {
-  if(confirm(translate('delete_domains'))) {
-    var tot = document.getElementById("idDomain").options.length;
-    for (i = tot; i > 0; i--) {
-      document.getElementById("idDomain").options[i] = null;
+    if(confirm(translate('delete_domains'))) {
+        $('#idDomain').html("");
+        abm.domains = [];
+        abm.options = [];
+        optionsPage._Save();
+        setTimeout(function() {
+            optionsPage._RefreshDomainList();
+            optionsPage._EnableOptions();
+        },300);
     }
-    abm.domains = [];
-    abm.options = [];
-    optionsPage._Save();
-    document.getElementById("idDomain").options[0].selected = true;
-  }
-}
+};
 
 //Delete extension
 optionsPage._DeleteExtension = function(id) {
-  if(confirm(translate("deleteextension_question", [$( "#idExtension option:selected" ).text()]))) {
-    $( "#idExtension option:selected" ).remove();
+
+    var delExt = function(id) {
+        if(typeof abm.extensions[id] !== "undefined") {
+            abm.extensions.splice(id, 1);
+            $('#idExtension'+id).parent().remove();
+        }
+    };
+    if($('.extension_check:checked').length > 1) {
+        if(confirm(translate("deletedomains_question", [$('.extension_check:checked').length]))) {
+            $($('.extension_check:checked').get().reverse()).each(function(a,b) {
+                delExt($(this).next().attr("data-id"));
+            });
+            optionsPage._Save();
+            setTimeout(function() {
+                optionsPage._RefreshExtensionList();
+            },500);
+        }
+    } else {
+        delExt($('.showOptions2').attr("data-id"));
+        optionsPage._Save();
+        setTimeout(function() {
+            optionsPage._RefreshExtensionList();
+        },500);
+    }
+
+  //if(confirm(translate("deleteextension_question", [$( "#idExtension option:selected" ).text()]))) {
+    /*$( "#idExtension option:selected" ).remove();
     optionsPage._Save();
     var selOpt = document.getElementById("idExtension").options;
     for (i = 1; i < selOpt.length; i++) {
       document.getElementById("idExtension").options[i] = new Option(selOpt[i].text, (i - 1), false, false);
     }
-    document.getElementById("idExtension").options[0].selected = true;
-  }
+    document.getElementById("idExtension").options[0].selected = true;*/
+  //}
 }
 
 //Delete all extensions
 optionsPage._DeleteExtensionAll = function() {
-  if(confirm(translate('delete_extensions'))) {
-    var tot = document.getElementById("idExtension").options.length;
-    for (i = tot; i > 0; i--) {
-      document.getElementById("idExtension").options[i] = null;
+    if(confirm(translate('delete_extensions'))) {
+        $('#idExtension').html("");
+        abm.extensions = [];
+        optionsPage._Save();
+        setTimeout(function() {
+            optionsPage._RefreshExtensionList();
+        },300);
     }
-    abm.extensions = [];
-    optionsPage._Save();
-    document.getElementById("idExtension").options[0].selected = true;
-  }
 }
 
 //Delete all
@@ -571,6 +745,7 @@ document.addEventListener('DOMContentLoaded', optionsPage._Init);
 chrome.extension.onMessage.addListener(function(request, sender, sendResponse) {
     switch(request.type) {
         case "reload":
+        case "reloadTab":
             location.reload();
         break;
     }

@@ -67,52 +67,95 @@ backgroundPage._OnDownload = function(item) {
   }
 }
 
+backgroundPage._AutoAdd = function(domain, extension) {
+    var paso = false;
+    var reload = false;
+    if(abm.autoAdd) {
+        //DOMAIN
+        for(var i=0; i<abm.domains.length; i++) {
+            if(domain === abm.domains[i]) {
+                paso = true;
+                break;
+            }
+        }
+        if(!paso) {
+            _domain._Add(domain);
+            reload = true;
+        }
+        //EXTENSION
+        paso = false;
+        for(var i=0; i<abm.extensions.length; i++) {
+            if(extension === abm.extensions[i]) {
+                paso = true;
+                break;
+            }
+        }
+        if(!paso) {
+            _extension._Add(extension);
+            reload = true;
+        }
+        //Reload if necessary
+        if(reload) {
+            abm.sendMessage('reloadTab');
+        }
+    }
+};
+
 backgroundPage._CheckItem = function(url,title,tabId) {
 
-  //Check state
-  if(!abm.state) {
-    console.log('Autobookmarks: Extension stopped!');
-    return;
-  }
-
-  //Check configuration
-  if(abm.domains.length <= 0 && abm.extensions.length <= 0) {
-    console.log('Autobookmarks: No filters!');
-    return;
-  }
-
-  //Get domains
-  var folderName = defaults.bookmarkFolderName;
-  for(var i=0; i<abm.domains.length; i++) {
-    //Find in url
-    if(functs.getUniqueId(url) === abm.domains[i]) {
-      backgroundPage._GetTitle(tabId, abm.options[i], title, function(title2, folder) {
-        if(title2 != "")
-          title = title2;
-        folderName = defaults.bookmarkFolderName;
-        if(folder != null && typeof folder !== "undefined")
-          folderName = folder[0];
-        
-        abm._CreateFolder(1, abm.bookmarkFolderName, true, function(idFolder1) {
-          idParentFolder = idFolder1;
-          backgroundPage._createBookmark(url, functs.getUniqueId(url), folderName, title);
-        });
-      });
-      break;
+    //Check state
+    if(!abm.state) {
+        console.log('Autobookmarks: Extension stopped!');
+        return;
     }
-  }
 
-  //Get extensions
-  for(var i=0; i<abm.extensions.length; i++) {
-    if(functs.getUniqueExtension(url) === abm.extensions[i]) {
-      abm._CreateFolder(1, abm.bookmarkFolderName, true, function(idFolder1) {
-        idParentFolder = idFolder1;
-        backgroundPage._createBookmark(url, abm.extensions[i], abm.extensions[i], title);
-      });
-      break;
-    }
-  }
-}
+    var domain = functs.getUniqueId(url);
+    var extension = functs.getUniqueExtension(url);
+    backgroundPage._AutoAdd(domain, extension);
+
+    abm._Restore(function() {
+
+        //Check configuration
+        if(abm.domains.length <= 0 && abm.extensions.length <= 0) {
+            console.log('Autobookmarks: No filters!');
+            return;
+        }
+
+        //Get domains
+        var folderName = defaults.bookmarkFolderName;
+        for(var i=0; i<abm.domains.length; i++) {
+            //Find in url
+            if(domain === abm.domains[i]) {
+                backgroundPage._GetTitle(tabId, abm.options[i], title, function(title2, folder) {
+                    if(title2 != "") {
+                        title = title2;
+                    }
+                    folderName = defaults.bookmarkFolderName;
+                    if(folder != null && typeof folder !== "undefined") {
+                        folderName = folder[0];
+                    }
+
+                    abm._CreateFolder(1, abm.bookmarkFolderName, true, function(idFolder1) {
+                        idParentFolder = idFolder1;
+                        backgroundPage._createBookmark(url, functs.getUniqueId(url), folderName, title);
+                    });
+                });
+                break;
+            }
+        }
+
+        //Get extensions
+        for(var i=0; i<abm.extensions.length; i++) {
+            if(extension === abm.extensions[i]) {
+                abm._CreateFolder(1, abm.bookmarkFolderName, true, function(idFolder1) {
+                    idParentFolder = idFolder1;
+                    backgroundPage._createBookmark(url, abm.extensions[i], abm.extensions[i], title);
+                });
+                break;
+            }
+        }
+    });
+};
 
 backgroundPage._GetTitle = function(tabId, option, title, callback) {
   if(typeof option !== "undefined" && option != null && option[1] === "1" && option[2] !== "" && tabId != null) {
@@ -129,19 +172,50 @@ backgroundPage._GetTitle = function(tabId, option, title, callback) {
 
 //Notify user
 backgroundPage._Notify = function(title, message) {
-  if(abm.notificationsEnabled) {
-    var opt = {
-       type: "basic",
-       title: title,
-       message: message,
-       iconUrl: "img/autobookmark_256.png"
-    };
-    chrome.notifications.create("", opt, function(id) {
-       //console.log('Nofity error:' + chrome.runtime.lastError);
-    });
-  } else {
-    console.log('New notification : '+message);
-  }
+    if(abm.notificationsEnabled) {
+        var realId;
+        var opt = {
+           type: "basic",
+           title: title,
+           message: message,
+           iconUrl: "img/autobookmark_256.png",
+           eventTime: Date.now() + parseInt(abm.notificationTimeout, 10),
+           buttons: [
+               { title: 'Disable notifications' },
+               { title: 'Close' },
+            ]
+        };
+        chrome.notifications.create("", opt, function(notificationId) {
+            console.log('Nofity error:' + chrome.runtime.lastError);
+            realId = notificationId;
+            setTimeout(function() {
+                chrome.notifications.clear(realId, function() {
+                    console.log('Clear notification');
+                });
+            },abm.notificationTimeout);
+        });
+        /* Respond to the user's clicking one of the buttons */
+        chrome.notifications.onButtonClicked.addListener(function(notifId, btnIdx) {
+            if (notifId === realId) {
+                if (btnIdx === 0) {
+                    abm.notificationsEnabled = false;
+                    chrome.storage.sync.set({
+                        notificationsEnabled: abm.notificationsEnabled,
+                    }, function() {
+                        abm._Restore();
+                        console.log('disable notifications');
+                    });
+                } else if (btnIdx === 1) {
+                    ;
+                }
+                chrome.notifications.clear(realId, function() {
+                    console.log('Clear notification');
+                });
+            }
+        });
+    } else {
+        console.log('New notification : '+message);
+    }
 }
 
 //Create a new bookmark

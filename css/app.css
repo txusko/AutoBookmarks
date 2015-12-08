@@ -102,3 +102,19 @@ textarea {
 	border: 1px solid transparent;
 	background: transparent;
 }
+
+.domain_list, .extension_list {
+	overflow: auto;
+	height: 300px;
+	border: 1px solid #ccc;
+}
+ul.domain_list, ul.extension_list {
+	/*border: 1px solid blue;*/
+	padding: 0px;
+}
+.domain_list li, .extension_list li {
+	list-style-type: none;
+	/*border: 1px solid red;*/
+	padding: 4px 0px 2px 12px;
+	cursor: pointer;
+}

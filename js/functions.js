@@ -37,7 +37,9 @@ var defaults = {
   extensions : [],
   bookmarkFolderName : "AutoBookmarks",
   notificationsEnabled : true,
-  dateEnabled : true
+  notificationTimeout : 2500,
+  dateEnabled : true,
+  autoAdd : false
 }
 
 //Extension vars
@@ -49,7 +51,9 @@ var abm = {
   extensions : defaults.extensions,
   bookmarkFolderName : defaults.bookmarkFolderName,
   notificationsEnabled : defaults.notificationsEnabled,
-  dateEnabled : defaults.dateEnabled
+  notificationTimeout : defaults.notificationTimeout,
+  dateEnabled : defaults.dateEnabled,
+  autoAdd : defaults.autoAdd
 }
 
 //Restore configuration
@@ -62,7 +66,9 @@ abm._Restore = function(callback) {
     abm.bookmarkFolderName = retVal.bookmarkFolderName;
     abm.extensions = retVal.extensions;
     abm.notificationsEnabled = retVal.notificationsEnabled;
+    abm.notificationTimeout = retVal.notificationTimeout;
     abm.dateEnabled = retVal.dateEnabled;
+    abm.autoAdd = retVal.autoAdd;
     //Localize
     localizePage();
     //Check id of the root folder
@@ -212,8 +218,8 @@ functs.getUniqueId = function(url) {
 }
 
 //Check for a valid domain
-functs.CheckIsValidDomain = function(domain) { 
-    var re = new RegExp(/^((?:(?:(?:\w[\.\-\+]?)*)\w)+)((?:(?:(?:\w[\.\-\+]?){0,62})\w)+)\.(\w{2,6})$/); 
+functs.CheckIsValidDomain = function(domain) {
+    var re = new RegExp(/^((?:(?:(?:\w[\.\-\+]?)*)\w)+)((?:(?:(?:\w[\.\-\+]?){0,62})\w)+)\.(\w{2,6})$/);
     return domain.match(re);
 }
 
@@ -248,13 +254,13 @@ functs.dateToYMD = function(date) {
 
 //Search for a title in bookmarks
 functs.search_for_title = function(bookmarks, title) {
-  if(typeof bookmarks !== "undefined") {  
-    for(var i=0; i < bookmarks.length; i++) { 
+  if(typeof bookmarks !== "undefined") {
+    for(var i=0; i < bookmarks.length; i++) {
       if(bookmarks[i].title == title || bookmarks[i].url == title) {
         // Totally found
         return bookmarks[i].id;
       } else {
-        if(bookmarks[i].children) {  
+        if(bookmarks[i].children) {
           // inception recursive stuff to get into the next layer of children
           var id = functs.search_for_title(bookmarks[i].children, title);
           if(id) return id;

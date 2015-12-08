@@ -8,12 +8,12 @@
     "description": "Save the visited pages and the download URLs in your bookmarks automatically."
   },
   "title": {
-  	"message": "Marcadors automàtics de les pàgines que visites filtrats per domini o per extensió.",
-  	"description": "Automatic bookmarks of your visited pages, filtered by domain or by extension."
+  	"message": "Marcadors automàtics de les pàgines que visites filtrats per domini o per extensió de fitxer.",
+  	"description": "Automatic bookmarks of your visited pages, filtered by domain or by file-extension."
   },
   "description": {
-    "message": "Aquesta extensió guarda de forma automàtica als marcadors les pàgines visitades que coincideixin amb els dominis o extensions configurats.",
-    "description": "This extension will automatically bookmark the visited page that meet domains or extensions cofiguration."
+    "message": "Aquesta extensió guarda de forma automàtica als marcadors les pàgines visitades que coincideixin amb els dominis o extensions de fitxers configurats.",
+    "description": "This extension will automatically bookmark the visited page that meet domains or file-extensions cofiguration."
   },
   "menu_settings": {
     "message": "Configuració general",
@@ -24,8 +24,8 @@
     "description": "Filter domains"
   },
   "menu_extensions": {
-    "message": "Filtres per extensions",
-    "description": "Filter extensions"
+    "message": "Filtres per extensions de fitxers",
+    "description": "Filter file-extensions"
   },
   "menu_history": {
     "message": "Filtrar històric",
@@ -40,16 +40,16 @@
     "description": "Add the domain"
   },
   "menu_addextension": {
-    "message": "Afegeix l'extensió",
-    "description": "Add the extension"
+    "message": "Afegeix l'extensió de fitxer",
+    "description": "Add the file-extension"
   },
   "menu_deldomains": {
     "message": "Esborra el domini",
     "description": "Remove domain"
   },
   "menu_delextension": {
-    "message": "Esborra l'extensió",
-    "description": "Remove extension"
+    "message": "Esborra l'extensió de fitxer",
+    "description": "Remove file-extension"
   },
   "menu_pause": {
     "message": "Pausa Autobookmarks",
@@ -63,9 +63,17 @@
     "message": "Nom de la carpeta de marcadors",
     "description": "AutoBookmarks folder name"
   },
+  "autoadd_enabled": {
+    "message": "Afegir dominis i extensions automàticament a partir de les págines que visites",
+    "description": "Add domains and file-extensions automatically"
+  },
   "notifications_enabled": {
     "message": "Notificacions actives",
     "description": "Notifications enabled"
+  },
+  "notifications_timeout": {
+    "message": "Temps de la notificació",
+    "description": "Notification's timeout"
   },
   "delete_all": {
     "message": "Borrar carpeta de marcadors i configuració i deixar la configuració de fàbrica",
@@ -104,23 +112,23 @@
     "description": "Default page title"
   },
   "new_extension": {
-    "message": "Afegir una extensió",
-    "description": "New extension"
+    "message": "Afegir una extensió de fitxer",
+    "description": "New file-extension"
   },
   "extensions": {
-    "message": "Extensions",
-    "description": "Extensions"
+    "message": "Extensions de fitxers",
+    "description": "File-extensions"
   },
   "select_extension": {
-    "message": "-- Seleccionar una extensió de la llista --",
-    "description": "-- Select an extension in the list --"
+    "message": "-- Seleccionar una extensió de fitxer de la llista --",
+    "description": "-- Select a file-extension in the list --"
   },
   "add_external_extension": {
-    "message": "Afegir extensions d'una font externa",
-    "description": "Add external extensions"
+    "message": "Afegir extensions de fitxers d'una font externa",
+    "description": "Add external file-extensions"
   },
   "history_description": {
-    "message": "Trobar pàgines visitades i fitxers baixats del teu històric que compleixen amb la configuració actual de dominis i extensions.",
+    "message": "Trobar pàgines visitades i fitxers baixats del teu històric que compleixen amb la configuració actual de dominis i extensions de fitxers.",
     "description": "Find the pages in your history that meet settings."
   },
   "yes": {
@@ -164,8 +172,8 @@
     "description": "view"
   },
   "add_extension": {
-    "message": "Afegir extensió",
-    "description": "Add extension"
+    "message": "Afegir l'extensió de fitxer",
+    "description": "Add file-extension"
   },
   "filter_history": {
     "message": "Filtra l'històric de marcadors amb la configuració actual",
@@ -204,8 +212,8 @@
     "description": "No domain in this page"
   },
   "no_extension": {
-    "message": "No hi ha extensió en aquesta pàgina",
-    "description": "No extension in this page"
+    "message": "No hi ha extensió de fitxer en aquesta pàgina",
+    "description": "No file-extension in this page"
   },
   "json_content": {
     "message": "Contingut recuperat via JSON (txusko.com)",
@@ -216,8 +224,8 @@
     "description": "View domains"
   },
   "view_extensions": {
-    "message": "Veure extensions",
-    "description": "View extensions"
+    "message": "Veure extensions de fitxers",
+    "description": "View file-extensions"
   },
   "process_ok": {
     "message": "Marcadors creats amb exit.",
@@ -236,8 +244,8 @@
     "description":"Enter a new domain or an URL"
   },
   "placeholder_newextension":{
-    "message":"Escriu una extensió amb el punt (P.ex: .jpg) o una URL",
-    "description":"Enter an extension with a dot (Ex: .jpg) or an URL"
+    "message":"Escriu una extensió de fitxer amb el punt (P.ex: .jpg) o una URL",
+    "description":"Enter a file-extension with a dot (Ex: .jpg) or an URL"
   },
   "placeholder_default":{
     "message":"Defecte",
@@ -263,9 +271,17 @@
     "message":"Cercar",
     "description":"Search"
   },
+  "check_all":{
+    "message":"Marcar tot",
+    "description":"Check all"
+  },
+  "uncheck_all":{
+    "message":"Desmarcar tot",
+    "description":"Uncheck all"
+  },
   "hist_noconfig":{
-    "message":"No tens dominis o extensions que filtrar.",
-    "description":"You don't have any domains or extensions to filter"
+    "message":"No tens dominis o extensions de fitxers que filtrar.",
+    "description":"You don't have any domains or file-extensions to filter"
   },
   "hist_recoveringdomains":{
     "message":"Recuperant dominis",
@@ -280,16 +296,16 @@
     "description":"We don't find any history page in"
   },
   "hist_nodownext":{
-    "message":"No hem trobat cap fitxer baixat amb aquesta extensió",
-    "description":"We don't find any downloaded file with this extension"
+    "message":"No hem trobat cap fitxer baixat amb aquesta extensió de fitxer",
+    "description":"We don't find any downloaded file with this file-extension"
   },
   "hist_nohisext":{
-    "message":"No hem trobat cap pàgina a l'historial amb aquesta extensió",
-    "description":"We don't find any history page with this extension"
+    "message":"No hem trobat cap pàgina a l'historial amb aquesta extensió de fitxer",
+    "description":"We don't find any history page with this file-extension"
   },
   "hist_recoveringextensions":{
-    "message":"Recuperant extensions",
-    "description":"Recovering extensions"
+    "message":"Recuperant extensions de fitxers",
+    "description":"Recovering file-extensions"
   },
   "in_history":{
     "message":"a l'historial",
@@ -304,8 +320,8 @@
     "description":"No domains configured yet"
   },
   "no_extensions":{
-    "message":"Encara no hi ha cap extensió configurada",
-    "description":"No extensions configured yet"
+    "message":"Encara no hi ha cap extensió de fitxer configurada",
+    "description":"No file-extensions configured yet"
   },
   "delete_allquestion":{
     "message":"Vols esborrar-ho tot i deixar la configuració als seus valors de fabrica?",
@@ -316,8 +332,8 @@
     "description":"Do you want to delete all the domains?"
   },
   "delete_extensions":{
-    "message":"Vols esborrar totes les extensions?",
-    "description":"Do you want to delete all the extensions?"
+    "message":"Vols esborrar totes les extensions de fitxers?",
+    "description":"Do you want to delete all the file-extensions?"
   },
   "total_new":{
     "message":"(total: $contentvalue1$ nous: $contentvalue2$)",
@@ -332,8 +348,8 @@
     }
   },
   "deleteextension_question":{
-    "message":"Vols esborrar l'extensió $contentvalue$?",
-    "description":"Do you want to delete extension?",
+    "message":"Vols esborrar l'extensió de fitxer $contentvalue$?",
+    "description":"Do you want to delete file-extension?",
     "placeholders":{
       "contentvalue":{
         "content":"$1"
@@ -349,13 +365,22 @@
       }
     }
   },
+  "deletedomains_question":{
+    "message":"Vols esborrar els $contentvalue$ dominis seleccionats i la seva configuració?",
+    "description":"Do you want to delete selected domains and the current configuration?",
+    "placeholders":{
+      "contentvalue":{
+        "content":"$1"
+      }
+    }
+  },
   "domains_for":{
     "message":"Dominis per",
     "description":"Domains for"
   },
   "extensions_for":{
-    "message":"Extensions per",
-    "description":"Extensions for"
+    "message":"Extensions de fitxers per",
+    "description":"File-extensions for"
   },
   "wait_process": {
     "message": "Espera un moment mentres el proces acaba ...",
@@ -377,5 +402,13 @@
   "date_enabled": {
     "message": "Afegir la data al títol dels nous marcadors",
     "description": "Add date to new bookmarks title"
+  },
+  "changelog": {
+    "message": "Changelog",
+    "description": "Changelog"
+  },
+  "miliseconds": {
+    "message": "Milisegons",
+    "description": "Miliseconds"
   }
 }
