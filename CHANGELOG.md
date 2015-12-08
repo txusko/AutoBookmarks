@@ -1,4 +1,4 @@
-# AutoBookmarks - Chrome extension
+# AutoBookmarks - Changelog
 
 ## 1.1.0.0
 * Initial release
