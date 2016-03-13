@@ -1,19 +1,26 @@
-# AutoBookmarks
-A chrome extension for automatically save the visited pages and the downloaded URLs in your bookmarks.
-https://chrome.google.com/webstore/detail/autobookmarks/lcchihcbfbaedlagdpaemgbpjapiihpo
+# [Start Bootstrap](http://startbootstrap.com/) - [Landing Page](http://startbootstrap.com/template-overviews/landing-page/)
 
-You can add domains or file extensions in your configuration. After that, Autobookmarks will create a bookmark each time you visit a new page or you download a new file that meet with this configuration. The created bookmarks will be saved into folders with the name you'll prefer, and these folders will be placed into a general folder in your browser bookmarks toolbar.
+[Landing Page](http://startbootstrap.com/template-overviews/landing-page/) is a multipurpose landing page template for [Bootstrap](http://getbootstrap.com/) created by [Start Bootstrap](http://startbootstrap.com/).
 
-## Filter domains or file extensions
-You can configure this extension with domains and/or file extensions. Besides, you can change the title, the destination folder name, adding if you prefer the current date in the generated bookmark. At last, Autobookmarks will create it with each new visited page.
+## Getting Started
 
-You will be able to put in new domains or file extensions in the Settings Page or by pressing the extension icon in the top right corner of your browser.
+To use this template, choose one of the following options to get started:
+* Download the latest release on Start Bootstrap
+* Fork this repository on GitHub
 
-## Get bookmarks from your history
-Recover from your browser history the pages you have visited for the last three months and the downloaded files URLs, and save it into bookmarks. All of these, filtered by the domains/extensions you have configured.
+## Bugs and Issues
 
-## Contact
-Also, you can contact with me by email at: autobookmarks@txusko.com
-Any kind of help or comment will be appreciated :)
+Have a bug or an issue with this template? [Open a new issue](https://github.com/IronSummitMedia/startbootstrap-landing-page/issues) here on GitHub or leave a comment on the [template overview page at Start Bootstrap](http://startbootstrap.com/template-overviews/landing-page/).
 
-http://autobookmarks.txusko.com/
+## Creator
+
+Start Bootstrap was created by and is maintained by **David Miller**, Managing Parter at [Iron Summit Media Strategies](http://www.ironsummitmedia.com/).
+
+* https://twitter.com/davidmillerskt
+* https://github.com/davidtmiller
+
+Start Bootstrap is based on the [Bootstrap](http://getbootstrap.com/) framework created by [Mark Otto](https://twitter.com/mdo) and [Jacob Thorton](https://twitter.com/fat).
+
+## Copyright and License
+
+Copyright 2014 Iron Summit Media Strategies, LLC. Code released under the [Apache 2.0](https://github.com/IronSummitMedia/startbootstrap-landing-page/blob/gh-pages/LICENSE) license.
