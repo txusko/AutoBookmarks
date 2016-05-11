@@ -2,7 +2,7 @@
   "manifest_version": 2,
   "name": "__MSG_extName__",
   "short_name": "__MSG_extName__",
-  "version": "1.1.0.2",
+  "version": "1.1.0.5",
   "default_locale": "en",
   "description": "__MSG_extDescription__",
   "icons": {
@@ -10,7 +10,7 @@
     "48": "img/autobookmark_48.png",
     "128": "img/autobookmark_128.png",
     "256": "img/autobookmark_256.png",
-    "256_off": "img/autobookmark_256_off.png"
+    "257": "img/autobookmark_256_off.png"
   },
   "browser_action": {
       "default_title": "__MSG_extName__",
