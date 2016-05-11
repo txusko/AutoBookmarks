@@ -166,7 +166,7 @@ abm.initState = function(message, callback) {
     chrome.browserAction.setIcon({path:chrome.app.getDetails().icons[256]});
   } else {
     $("[name='state']").bootstrapSwitch();
-    chrome.browserAction.setIcon({path:chrome.app.getDetails().icons["256_off"]});
+    chrome.browserAction.setIcon({path:chrome.app.getDetails().icons[257]});
   }
   //Action
   $('#idState').on('switchChange.bootstrapSwitch', function(event, state) {
@@ -174,7 +174,7 @@ abm.initState = function(message, callback) {
     if(state) {
       chrome.browserAction.setIcon({path:chrome.app.getDetails().icons[256]});
     } else {
-      chrome.browserAction.setIcon({path:chrome.app.getDetails().icons["256_off"]});
+      chrome.browserAction.setIcon({path:chrome.app.getDetails().icons[257]});
     }
     //Save
     chrome.storage.sync.set({
